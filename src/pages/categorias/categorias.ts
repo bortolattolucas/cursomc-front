@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CategoriaService } from '../../services/domain/categoria.service';
 
 /**
  * Generated class for the CategoriasPage page.
@@ -15,11 +16,31 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CategoriasPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public categoriaService: CategoriaService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoriasPage');
-  }
+/*  Exemplo de subscrição sem Arrow Function 
+  ionViewDidLoad() {  Ao carregar a página...
 
+    this.categoriaService.findAll()
+    .subscribe(this.f);  ...irá disparar a função f ao receber o retorno do findAll do service
+       (esse é o conceito de Observable do Angular, aguardando e reagindo no momento de uma resposta)
+  }
+  f(response){
+    console.log(response);
+  }
+*/
+
+//Código utilizando arrow function normalmente nas subscrições:
+
+  ionViewDidLoad(){
+
+    this.categoriaService.findAll().subscribe(response => {
+      console.log(response);
+    },
+    error =>{
+      console.log(error);
+    });
+    
+  }
 }
