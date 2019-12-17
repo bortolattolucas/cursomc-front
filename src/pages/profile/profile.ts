@@ -37,8 +37,15 @@ export class ProfilePage {
          this.cliente = response;
          this.getImageIfExists();
        },
-       error => {});
+       error => {
+         //Por ser um endpoint protegido, ele poderá retornar um 403
+         if (error.status == 403){
+           this.navCtrl.setRoot('HomePage');
+         }
+       });
 
+    }else{ //Caso ocorra algum problema ao obter o localUser
+      this.navCtrl.setRoot('HomePage');
     }
 
   }
