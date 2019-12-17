@@ -25,6 +25,18 @@ export class AuthService{
             });
     }
 
+    //O token é incluído automaticamente na requisição pelo interceptor,
+    //logo não é necessário incluir ele no método abaixo
+    refreshToken(){
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/auth/refresh_token`, 
+            {},
+            {
+                observe: 'response',
+                responseType: 'text'
+            });
+    }
+
     successfulLogin(authorizationValue : string){
         let tok = authorizationValue.substring(7); //Remove o "Bearer " do token
         
